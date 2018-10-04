@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"go_shortener/config"
-	"go_shortener/controller"
-	"go_shortener/handler"
-	"go_shortener/models"
+
+	"github.com/andanhm/go_shortener/config"
+	"github.com/andanhm/go_shortener/controller"
+	"github.com/andanhm/go_shortener/handler"
+	"github.com/andanhm/go_shortener/models"
 )
 
 func main() {
@@ -29,15 +30,15 @@ func main() {
 
 		switch r.Method {
 		case "GET":
-			shortUrl:=r.URL.Query().Get("short")
-			longUrl:=r.URL.Query().Get("long")
+			shortUrl := r.URL.Query().Get("short")
+			longUrl := r.URL.Query().Get("long")
 			fmt.Println(shortUrl)
 			fmt.Println(longUrl)
-			urlInfo:=models.UrlInfo{
-				ShortUrl:shortUrl,
-				LongUrl:longUrl,
+			urlInfo := models.UrlInfo{
+				ShortUrl: shortUrl,
+				LongUrl:  longUrl,
 			}
-			response, statusCode := controller.Fetch(connection,urlInfo)
+			response, statusCode := controller.Fetch(connection, urlInfo)
 			w.WriteHeader(statusCode)
 			data, err := json.Marshal(response)
 			if err != nil {
@@ -46,7 +47,7 @@ func main() {
 			fmt.Fprintf(w, "%s", data)
 			break
 		case "POST":
-			var url string = r.PostFormValue("url")
+			var url = r.PostFormValue("url")
 			response, statusCode := controller.CreateURL(connection, url)
 			w.WriteHeader(statusCode)
 			data, err := json.Marshal(response)
