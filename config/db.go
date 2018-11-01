@@ -1,4 +1,5 @@
 package config
+
 const (
 	// Mongo Database name
 	DB_NAME string = "shortener"

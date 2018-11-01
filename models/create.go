@@ -1,8 +1,8 @@
 package models
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
 type JSONTime time.Time
@@ -23,6 +23,6 @@ type DataObj struct {
 	Message  string `json:"message,omitempty"`
 }
 type ErrorObj struct {
-	Code    int      `json:"code,omitempty"`
-	Message string   `json:"message,omitempty"`
+	Code    int    `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
 }

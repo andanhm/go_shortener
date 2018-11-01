@@ -2,12 +2,14 @@
 package handler
 
 import (
+	"fmt"
+	"time"
+
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"go_shortener/config"
-	"time"
-	"fmt"
-	"go_shortener/models"
+
+	"github.com/andanhm/go_shortener/config"
+	"github.com/andanhm/go_shortener/models"
 )
 
 var mongoDB *mgo.Database
@@ -21,7 +23,7 @@ func Open() (*mgo.Database, error) {
 	if mongoDB == nil {
 		session, err := mgo.Dial(config.MONGO_DB_URL)
 		if err != nil {
-			fmt.Printf("%s\n",err.Error())
+			fmt.Printf("%s\n", err.Error())
 			return nil, err
 		}
 		//defer mongo.Close()
@@ -42,7 +44,7 @@ func CreateUrlIndex(connection *mgo.Collection) {
 	}
 	err := connection.EnsureIndex(index)
 	if err != nil {
-		fmt.Printf("%s Unable to create the mongodb index\n",err.Error())
+		fmt.Printf("%s Unable to create the mongodb index\n", err.Error())
 	}
 	fmt.Println("tblShortUrl index's created")
 }

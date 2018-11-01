@@ -1,11 +1,13 @@
 package controller
 
 import (
-	"gopkg.in/mgo.v2"
 	"net/http"
-	"go_shortener/handler"
-	"go_shortener/models"
-	"go_shortener/utilities"
+
+	"gopkg.in/mgo.v2"
+
+	"github.com/andanhm/go_shortener/handler"
+	"github.com/andanhm/go_shortener/models"
+	"github.com/andanhm/go_shortener/utilities"
 )
 
 func getShortUrl() string {
@@ -20,7 +22,7 @@ func CreateURL(connection *mgo.Collection, longUrl string) (models.Response, int
 		}
 		return response, http.StatusBadRequest
 	}
-	var shortUrl string = getShortUrl()
+	var shortUrl = getShortUrl()
 	err, urlInfo := handler.CheckLongUrl(connection, longUrl)
 	if err != nil {
 		response := models.Response{
@@ -39,7 +41,7 @@ func CreateURL(connection *mgo.Collection, longUrl string) (models.Response, int
 		return response, http.StatusCreated
 	}
 	err, urlInfo = handler.CheckShortUrl(connection, shortUrl)
-	if err != nil  {
+	if err != nil {
 		response := models.Response{
 			Status: false,
 			Error:  models.ErrorObj{Code: 1003, Message: "Unable to create short url created"},
@@ -51,7 +53,7 @@ func CreateURL(connection *mgo.Collection, longUrl string) (models.Response, int
 		shortUrl = getShortUrl()
 	}
 
-	err = handler.InsertUrlInfo(connection,longUrl,shortUrl)
+	err = handler.InsertUrlInfo(connection, longUrl, shortUrl)
 	if err != nil {
 		response := models.Response{
 			Status: false,
